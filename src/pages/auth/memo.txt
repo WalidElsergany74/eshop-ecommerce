@@ -1,0 +1,32 @@
+function onSubmit() {
+  try {
+
+  
+  setIsLoading(true)
+  // Firebase Register
+  createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+  const user = userCredential.user;
+  // Store name and photo in base
+   updateProfile(user,  { displayName: user.displayName ? user.displayName : fristName ,
+    photoURL : user.photoURL ? user.photoURL : photo  , phoneNumber : user.phoneNumber ? user.phoneNumber : phone} 
+  );
+  
+  
+      
+  await setDoc(doc(db, "cities", "LA"), {
+    name: "Los Angeles",
+    state: "CA",
+    country: "USA"
+  });
+  
+  setIsLoading(false)
+  toast.success("Register is done successfully")
+  navigate("/Login")
+  })
+  
+}
+  
+  
+  
+}
